@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: development-environment-metaphor
+  name: development-bootstrap
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: '45'
+    argocd.argoproj.io/sync-wave: '15'
 spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/development/metaphor
+    path: registry/clusters/development/bootstrap
     targetRevision: HEAD
   destination:
-    name: development
-    namespace: development
+    name: in-cluster
+    namespace: crossplane-system
   syncPolicy:
     automated:
       prune: true

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: development-environment-metaphor
+  name: development-environment
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,11 +11,11 @@ spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/development/metaphor
+    path: registry/environments/development
     targetRevision: HEAD
   destination:
-    name: development
-    namespace: development
+    name: in-cluster
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
