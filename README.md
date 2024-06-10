@@ -29,18 +29,18 @@ The [kubefirst cli](https://github.com/kubefirst/kubefirst) has established the 
 
 | Application              | Namespace        | Description                                 | URL (where applicable)             |
 | ------------------------ | ---------------- | ------------------------------------------- | ---------------------------------- |
-| Argo CD                  | argocd           | GitOps Continuous Delivery                  | <ARGOCD_INGRESS_URL>               |
-| Argo Workflows           | argo             | Application Continuous Integration          | <ARGO_WORKFLOWS_INGRESS_URL>       |
-| Atlantis                 | atlantis         | Terraform Workflow Automation               | <ATLANTIS_INGRESS_URL>             |
+| Argo CD                  | argocd           | GitOps Continuous Delivery                  | https://argocd.gabrielsousa.dev               |
+| Argo Workflows           | argo             | Application Continuous Integration          | https://argo.gabrielsousa.dev       |
+| Atlantis                 | atlantis         | Terraform Workflow Automation               | https://atlantis.gabrielsousa.dev             |
 | Cert Manager             | cert-manager     | Certificate Automation Utility              |                                    |
 | Certificate Issuers      | clusterwide      | Let's Encrypt browser-trusted certificates  |                                    |
-| Chart Museum             | chartmuseum      | Helm Chart Registry                         | <CHARTMUSEUM_INGRESS_URL>          |
+| Chart Museum             | chartmuseum      | Helm Chart Registry                         | https://chartmuseum.gabrielsousa.dev          |
 | External Secrets         | external-secrets | Syncs Kubernetes secrets with Vault secrets |                                    |
-| Metaphor Development     | development      | Development instance of sample application  | <METAPHOR_DEVELOPMENT_INGRESS_URL> |
-| Metaphor Staging         | staging          | Staging instance of sample application      | <METAPHOR_STAGING_INGRESS_URL>     |
-| Metaphor Production      | production       | Production instance of sample application   | <METAPHOR_PRODUCTION_INGRESS_URL>  |
+| Metaphor Development     | development      | Development instance of sample application  | https://metaphor-development.gabrielsousa.dev |
+| Metaphor Staging         | staging          | Staging instance of sample application      | https://metaphor-staging.gabrielsousa.dev     |
+| Metaphor Production      | production       | Production instance of sample application   | https://metaphor-production.gabrielsousa.dev  |
 | Nginx Ingress Controller | ingress-nginx    | Ingress Controller                          |                                    |
-| Vault                    | vault            | Secrets Management                          | <VAULT_INGRESS_URL>                |
+| Vault                    | vault            | Secrets Management                          | https://vault.gabrielsousa.dev                |
 
 ---
 
@@ -48,7 +48,7 @@ The [kubefirst cli](https://github.com/kubefirst/kubefirst) has established the 
 
 The argocd configurations in this repo can be found in the [registry directory](./registry). The applications that we build and release on the kubefirst platform will also be registered here in the development, staging, and production folders. The `metaphor` application can be found there to serve as an example to follow for building and shipping code on the platform.
 
-The `main` branch's registry directory represents the gitops desired state for all apps registered with kubernetes. Argo CD will automatically apply your desired state to kubernetes through. You can see the Sync status of all of your apps in [argo cd](<ARGOCD_INGRESS_URL>).
+The `main` branch's registry directory represents the gitops desired state for all apps registered with kubernetes. Argo CD will automatically apply your desired state to kubernetes through. You can see the Sync status of all of your apps in [argo cd](https://argocd.gabrielsousa.dev).
 
 ## terraform infrastructure as code
 

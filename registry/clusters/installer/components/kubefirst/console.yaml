@@ -1,0 +1,72 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubefirst
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  project: default
+  source:
+    repoURL: https://charts.kubefirst.com
+    targetRevision: 2.4.9
+    chart: kubefirst
+    helm:
+      values: |-
+        global:
+          cloudProvider: "digitalocean"
+          clusterId: "elzl52"
+          clusterType: "mgmt"
+          domainName: "gabrielsousa.dev"
+          gitProvider: "github"
+          installMethod: "helm"
+          kubefirstClient: "<KUBEFIRST_CLIENT>"
+          kubefirstTeam: "false"
+          kubefirstTeamInfo: ""
+          kubefirstVersion: "v2.4.9"
+          useTelemetry: ""
+        kubefirst-api-ee:
+          extraEnv:
+            IN_CLUSTER: "true"
+        kubefirst-api:
+          isClusterZero: "false"
+          extraEnv:
+            IN_CLUSTER: "true"
+            CLUSTER_NAME: "installer"
+            ENTERPRISE_API_URL: "http://kubefirst-kubefirst-api-ee.kubefirst.svc.cluster.local"
+        console:
+          isClusterZero: "false"
+          domain: "gabrielsousa.dev"
+          extraEnvSecrets:
+            CLIENT_ID:
+              name: kubefirst-console-secrets
+              key: client_id
+            SECRET_ID:
+              name: kubefirst-console-secrets
+              key: client_secret
+          ingress:
+            enabled: "true"
+            className: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+              
+              
+              
+            hosts:
+              - host: kubefirst.gabrielsousa.dev
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              - secretName: kubefirst-tls
+                hosts:
+                  - kubefirst.gabrielsousa.dev
+  destination:
+    name: in-cluster
+    namespace: kubefirst
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

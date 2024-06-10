@@ -1,0 +1,36 @@
+metaphor:
+  annotations: |
+    linkerd.io/inject: "enabled"
+  labels: |
+    mirror.linkerd.io/exported: "true"
+  image:
+    repository: ghcr.io/kubefirst-dos-mlk/metaphor
+  imagePullSecrets:
+    - name: docker-config
+  ingress:
+    className: nginx
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      
+      
+      
+      nginx.ingress.kubernetes.io/service-upstream: "true"
+    hosts:
+      - host: metaphor-development.gabrielsousa.dev
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: metaphor-tls
+        hosts:
+          - metaphor-development.gabrielsousa.dev
+  metaphor:
+    host: https://metaphor-development.gabrielsousa.dev/api
+    console: https://kubefirst.gabrielsousa.dev
+
+  clusterSecretStoreName: <WORKLOAD_CLUSTER_NAME>-vault-kv-secret
+  vaultSecretPath: <WORKLOAD_CLUSTER_NAME>/metaphor
+  configs:
+    configOne: <WORKLOAD_CLUSTER_NAME>-config-one
+    configTwo: <WORKLOAD_CLUSTER_NAME>-config-two

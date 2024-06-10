@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cwfts
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: '30'
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
+    path: registry/clusters/installer/components/argo-workflows/cwfts
+    targetRevision: HEAD
+  destination:
+    name: in-cluster
+    namespace: argo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
