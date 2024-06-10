@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: staging-environment-metaphor
+  name: staging-environment
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,11 +11,11 @@ spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/staging/metaphor
+    path: registry/environments/staging
     targetRevision: HEAD
   destination:
-    name: staging
-    namespace: staging
+    name: in-cluster
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true

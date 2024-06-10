@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: staging-environment-metaphor
+  name: staging-cert-issuers
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: '45'
+    argocd.argoproj.io/sync-wave: '40'
 spec:
-  project: default
+  project: staging
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/staging/metaphor
+    path: registry/clusters/staging/cert-issuers
     targetRevision: HEAD
   destination:
     name: staging
-    namespace: staging
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true

@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: staging-environment-metaphor
+  name: staging-provider-config
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: '45'
+    argocd.argoproj.io/sync-wave: '0'
 spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/staging/metaphor
+    path: registry/clusters/staging/provider-config
     targetRevision: HEAD
   destination:
-    name: staging
-    namespace: staging
+    name: in-cluster
+    namespace: crossplane-system
   syncPolicy:
     automated:
       prune: true
