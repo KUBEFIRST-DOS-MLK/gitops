@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production-environment-metaphor
+  name: production-environment
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -11,11 +11,11 @@ spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/production/metaphor
+    path: registry/environments/production
     targetRevision: HEAD
   destination:
-    name: production
-    namespace: production
+    name: in-cluster
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true

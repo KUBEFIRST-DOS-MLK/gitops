@@ -1,24 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production-environment-metaphor
+  name: registry-production
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: '100'
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: '45'
 spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/production/metaphor
+    path: registry/clusters/production
     targetRevision: HEAD
   destination:
-    name: production
-    namespace: production
+    server: https://kubernetes.default.svc
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        maxDuration: 5m0s
+        factor: 2

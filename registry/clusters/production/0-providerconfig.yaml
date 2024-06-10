@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production-environment-metaphor
+  name: production-provider-config
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: '45'
+    argocd.argoproj.io/sync-wave: '0'
 spec:
   project: default
   source:
     repoURL: git@github.com:kubefirst-dos-mlk/gitops.git
-    path: registry/environments/production/metaphor
+    path: registry/clusters/production/provider-config
     targetRevision: HEAD
   destination:
-    name: production
-    namespace: production
+    name: in-cluster
+    namespace: crossplane-system
   syncPolicy:
     automated:
       prune: true

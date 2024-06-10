@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: production
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: production description
+  sourceRepos:
+  - 'git@github.com:kubefirst-dos-mlk/gitops.git'
+  - 'https://kubernetes.github.io/ingress-nginx'
+  - 'https://kubernetes-sigs.github.io/external-dns'
+  - 'https://charts.jetstack.io'
+  - 'https://charts.external-secrets.io'
+  - 'https://helm.datadoghq.com'
+  - 'https://stakater.github.io/stakater-charts'
+  - 'https://chartmuseum.gabrielsousa.dev'
+  - 'https://charts.loft.sh'
+  - 'https://github.com/cloudflare/origin-ca-issuer'
+  - 'https://cloudflare.github.io/origin-ca-issuer/charts'
+  - '*' # Adding wildcard for the gitops catalog. This wildcard can be removed from the template or after provisioning
+  destinations:
+  - namespace: external-dns
+    name: production
+  - namespace: datadog
+    name: production
+  - namespace: default
+    name: production
+  - namespace: production
+    name: production
+  - namespace: external-secrets-operator
+    name: production
+  - namespace: reloader
+    name: production
+  - namespace: cert-manager
+    name: production
+  - namespace: ingress-nginx
+    name: production
+  - namespace: kube-system
+    name: production
+  - namespace: '*' # Adding wildcard for the gitops catalog. This wildcard can be removed from the template or after provisioning
+    server: '*' # Adding wildcard for the gitops catalog. This wildcard can be removed from the template or after provisioning
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  roles:
+  - description: production-admin-role
+    groups:
+    - admins
+    name: admin-role
+    policies:
+    - p, proj:production:admin-role, applications, *, production/*, allow

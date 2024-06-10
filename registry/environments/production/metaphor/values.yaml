@@ -29,8 +29,8 @@ metaphor:
     host: https://metaphor-production.gabrielsousa.dev/api
     console: https://kubefirst.gabrielsousa.dev
 
-  clusterSecretStoreName: <WORKLOAD_CLUSTER_NAME>-vault-kv-secret
-  vaultSecretPath: <WORKLOAD_CLUSTER_NAME>/metaphor
+  clusterSecretStoreName: production-vault-kv-secret
+  vaultSecretPath: production/metaphor
   configs:
-    configOne: <WORKLOAD_CLUSTER_NAME>-config-one
-    configTwo: <WORKLOAD_CLUSTER_NAME>-config-two
+    configOne: production-config-one
+    configTwo: production-config-two
